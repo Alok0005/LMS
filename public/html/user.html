@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+<style>
+	#div1
+		{
+              position: absolute;
+              top:20vh;
+              left:40vw;
+              font-size: 6vh;
+		}
+		button{
+			width: 10vw;
+			height:10vh;
+			background-color: black;
+			color:white;
+			font-size: 2vh;
+			border-radius:1vw;
+		}
+		button:hover{
+			background-color: green;
+			cursor: pointer;
+		}
+		#logout{
+      position:absolute;
+      left:80vw;
+      top:5vh;
+      width: 10vw;
+      height: 7vh;
+      background-color: red;
+      font-size: 4vh;
+      border-radius: 2vh;
+    }
+    .form{
+			display: none;
+			position: absolute;
+			left:35vw;
+			font-size: 3vh;
+			width:26vw;
+			background-color: #ff9933;
+			padding: 3vw;
+			-webkit-box-shadow: -8px 10px 98px 57px rgba(0,0,0,0.75);
+            -moz-box-shadow: -8px 10px 98px 57px rgba(0,0,0,0.75);
+           box-shadow: -8px 10px 98px 57px rgba(0,0,0,0.75);
+
+		}
+		.formButton{
+
+			width:5vw;
+			height:5vh;
+			background-color: red;
+		}
+			input{
+			width:20vw;
+			font-size: 4vh;
+		}
+		#b2{
+			 position: absolute;
+              left:10vw;
+              top:50vh;
+              font-size: 4vh;
+              width:20vw;
+              height:20vh;
+		}
+		#b3{
+			 position: absolute;
+              left:70vw;
+              top:50vh;
+              font-size: 4vh;
+              width:20vw;
+              height:20vh;
+		}
+</style>	
+</head>
+<body onload='load()'>
+
+
+<div id='div1'>Welcome</div>
+<button id='b2' onclick="Add('issueBook')">Issue Book</button>
+ <button id='b3' onclick="Add('returnBook')">Return Book</button>
+<button id='b1' onclick="Add('changePassword')">Change Password</button>
+<a id='a' href="index.html"><button id='logout'>Logout</button></a>
+<div  id='changePassword' class='form'>
+    	<label> Enter Old Password</label><br><br><br><br>
+    	<input type='text' id="oldPassword"></input><br><br><br><br>
+    	<label> Enter New Password</label><br><br><br><br>
+    	<input type='text' id="newPassword"></input><br><br>
+    	<button class='formButton' onclick='ChangePassword()'>Change</button>
+    	<button class='formButton' class='AddCancel' onclick="Cancel('changePassword')">Cancel</button>
+    	
+    </div>
+
+
+<div  id='issueBook' class='form'>
+    	<label> Enter Student ID</label><br><br><br>
+    	<input type='number' id='studentIssueId'></input><br><br>
+    	<label> Enter Book Name</label><br><br><br>
+    	<input type='text' id='bookIssueName'></input><br><br>
+    	<label> Enter Author</label><br><br><br>
+    	<input type='text' id='authorIssueName'></input><br><br>
+    	<button class='formButton' onclick='issueBook()'>Issue</button>
+    	<button class='formButton' class='AddCancel' onclick="Cancel('issueBook')">Cancel</button>
+    </div>
+
+<div  id='returnBook' class='form'>
+    	<label> Enter Student ID</label><br><br><br>
+    	<input type='number' id='studentReturnId'></input><br><br>
+    	<label> Enter Book Name</label><br><br><br>
+    	<input type='text' id='bookReturnName'></input><br><br>
+    	<label> Enter Author</label><br><br><br>
+    	<input type='text' id='authorReturnName'></input><br><br>
+    	<button class='formButton' onclick='returnBook()'>Issue</button>
+    	<button class='formButton' class='AddCancel' onclick="Cancel('returnBook')">Cancel</button>
+    </div>
+
+
+</body>
+<script>
+
+
+    	async function ChangePassword()
+	{
+
+		var old=document.getElementById('oldPassword').value;
+		var neu=document.getElementById('newPassword').value;
+		if(old.length==0||neu.length==0)
+		{
+           alert('Fields Cannot be Empty');
+			
+			return;
+		}
+		object={
+	    	o:old,
+	    	n:neu,
+        db:'user'
+	    }	
+		var options={
+			   method: 'POST',
+               headers: { 'Content-type': 'application/json'},
+               body:JSON.stringify(object)
+            };
+        let response=await fetch('changePassword',options);
+        let json=await response.json();
+        console.log('here');
+        console.log(json.k);
+          if(json.k!=null)
+        {
+        	alert('Password Changed SucessFully');
+          document.getElementById('changePassword').style.display='none';
+        }
+        else
+        {
+        	alert('Incorrect Password');
+           document.getElementById('changePassword').style.display='none';
+        }
+	}
+	var obj=null;
+	var options={
+			   method: 'POST',
+               headers: { 'Content-type': 'application/json'} 
+            };
+
+   async function load()
+	{
+		let a=await fetch('data',options);
+		obj=await a.json();
+        var div=document.getElementById('div1');
+        console.log(obj.k);
+        div.innerText+=" "+obj.k.name;
+	}
+	function Add(a)
+	{
+       var form=document.getElementById(a);
+       form.style.display='initial';
+       
+	}
+
+	function Cancel(a)
+	{
+       var form=document.getElementById(a);
+       form.style.display='none';
+	}
+
+	async function issueBook()
+	{
+	var id1=document.getElementById('studentIssueId').value;
+     var name1=document.getElementById('bookIssueName').value;
+     var name2=document.getElementById('authorIssueName').value;
+     if(name1.length==0||name2.length==0||id1.length==0)
+     {
+      alert('Fields cannot be Empty');
+     }
+     else
+     {
+     	obj={
+        bookName:name1,
+        authorName:name2,
+        id:id1,
+         };
+         var options={
+           method: 'POST',
+               headers: { 'Content-type': 'application/json'},
+               body:JSON.stringify(obj)
+            };
+
+            var response= await fetch('issueBook',options);
+          var json=await response.json();
+          console.log(json.k);
+          alert(json.l);
+            document.getElementById('returnBook').style.display='none';
+     }
+	}
+
+    async function returnBook()
+	{
+	var id1=document.getElementById('studentReturnId').value;
+     var name1=document.getElementById('bookReturnName').value;
+     var name2=document.getElementById('authorReturnName').value;
+     if(name1.length==0||name2.length==0||id1.length==0)
+     {
+      alert('Fields cannot be Empty');
+     }
+     else
+     {
+     	obj={
+        bookName:name1,
+        authorName:name2,
+        id:id1
+         };
+         var options={
+           method: 'POST',
+               headers: { 'Content-type': 'application/json'},
+               body:JSON.stringify(obj)
+            };
+
+            var response= await fetch('returnBook',options);
+          var json=await response.json();
+          console.log(json.k);
+          alert(json.l);   
+           document.getElementById('returnBook').style.display='none';
+     }
+  }
+
+</script>
+</html>

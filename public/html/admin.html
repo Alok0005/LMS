@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style>
+		#div1
+		{
+              position: absolute;
+              left:40vw;
+              font-size: 4vh;
+		}
+		button{
+			width: 10vw;
+			height:10vh;
+			background-color: black;
+			color:white;
+			border-radius:1vw;
+		}
+		button:hover{
+			background-color: green;
+			cursor: pointer;
+		}
+		#b2{
+			 position: absolute;
+              left:10vw;
+              top:20vh;
+              font-size: 3vh;
+		}
+		#b3{
+			 position: absolute;
+              left:45vw;
+              top:20vh;
+              font-size: 3vh;
+		}
+		#b4{
+			 position: absolute;
+              left:80vw;
+              top:20vh;
+              font-size: 3vh;
+		}
+		#b5{
+			 position: absolute;
+              left:10vw;
+              top:60vh;
+              font-size: 3vh;
+		}
+		#b6{
+			 position: absolute;
+              left:45vw;
+              top:60vh;
+              font-size: 3vh;
+		}
+		#b7{
+			 position: absolute;
+              left:80vw;
+              top:60vh;
+              font-size: 3vh;
+		}
+		.form{
+			display: none;
+			position: absolute;
+			left:35vw;
+			font-size: 3vh;
+			width:26vw;
+			background-color: #ff9933;
+			padding: 3vw;
+			-webkit-box-shadow: -8px 10px 98px 57px rgba(0,0,0,0.75);
+            -moz-box-shadow: -8px 10px 98px 57px rgba(0,0,0,0.75);
+           box-shadow: -8px 10px 98px 57px rgba(0,0,0,0.75);
+
+		}
+		.formButton{
+
+			width:5vw;
+			height:5vh;
+			background-color: red;
+		}
+		.AddCancel{
+			position: absolute;
+			left:20vw;
+		}
+		input{
+			width:20vw;
+			font-size: 4vh;
+		}
+    #logout{
+      position:absolute;
+      left:80vw;
+      top:5vh;
+      width: 10vw;
+      height: 7vh;
+      background-color: red;
+      font-size: 4vh;
+      border-radius: 2vh;
+    }
+	</style>
+</head>
+<body onload='load()'>
+  <a id='a' href="index.html"><button id='logout'>Logout</button></a>
+	<div id='div1'>Welcome</div>
+	<button id='b1' onclick="Add('changePassword')">Change Password</button>
+	<button id='b2' onclick="Add('addUser')">Add User</button>
+	<button id='b3' onclick="Add('addStudent')">Add Student</button>
+	<button id='b4' onclick="Add('addBook')">Add Book</button>
+	<button id='b5' onclick="Add('deleteUser')">Remove User</button>
+	<button id='b6' onclick="Add('deleteStudent')">Remove Student</button>
+	<button id='b7' onclick="Add('deleteBook')">Remove Book</button>
+
+   <div  id='changePassword' class='form'>
+    	<label> Enter Old Password</label><br><br><br><br>
+    	<input type='text' id="oldPassword"></input><br><br><br><br>
+    	<label> Enter New Password</label><br><br><br><br>
+    	<input type='text' id="newPassword"></input><br><br>
+    	<button class='formButton' onclick='ChangePassword()'>Change</button>
+    	<button class='formButton' class='AddCancel' onclick="Cancel('changePassword')">Cancel</button>
+    </div>
+
+    <div  id='addUser' class='form'>
+    	<label> Enter User ID</label><br><br>
+    	<input type='number' id='userId'></input><br><br>
+    	<label> Enter User Name</label><br><br>
+    	<input type='text' id='userName'></input><br><br>
+    	<label> Enter Password</label><br><br>
+    	<input type='text' id='setPassword'></input><br><br>
+    	<label>Confirm Password</label><br><br>
+    	<input type='text' id='confirmSetPassword'></input><br><br>
+    	<button class='formButton' onclick='addUser()'>Add</button>
+    	<button class='formButton' class='AddCancel' onclick="Cancel('addUser')">Cancel</button>
+    </div>
+    
+    <div id='addStudent' class='form'>
+    	<label> Enter Student ID</label><br><br><br><br>
+    	<input type='number' id='studentId'></input><br><br><br><br>
+    	<label> Enter Student Name</label><br><br><br><br>
+    	<input type='text' id='studentName'></input><br><br><br><br>
+    	<button class='formButton' onclick='addStudent()'>Add</button>
+    	<button class='formButton' class='AddCancel' onclick="Cancel('addStudent')">Cancel</button>
+    </div>
+
+     <div id='addBook' class='form'>
+    	<label> Enter Book Name</label><br><br><br>
+    	<input type='text' id='bookName'></input><br><br>
+    	<label> Enter Author Name</label><br><br><br>
+    	<input type='text' id='authorName'></input><br><br>
+    	<label> Enter Quantity</label><br><br><br>
+    	<input type='number' id='totalQuant'></input><br><br>
+    	<button class='formButton' onclick='addBook()'>Add</button>
+    	<button class='formButton' class='AddCancel' onclick="Cancel('addBook')">Cancel</button>
+    </div>
+
+    <div id='deleteUser' class='form'>
+    	<label> Enter User ID</label><br><br><br><br>
+    	<input type='number' id='deleteUserId'></input><br><br><br><br>
+    	<label> Enter User Name</label><br><br><br><br>
+    	<input type='text' id='deleteUserName'></input><br><br><br><br>
+    	<button class='formButton' onclick='deleteUser()'>Remove</button>
+    	<button class='formButton' class='AddCancel' onclick="Cancel('deleteUser')">Cancel</button>
+    </div>
+
+    <div id='deleteStudent' class='form'>
+    	<label> Enter Student ID</label><br><br><br><br>
+    	<input type='number' id='deleteStudentId'></input><br><br><br><br>
+    	<label> Enter Student Name</label><br><br><br><br>
+    	<input type='text' id='deleteStudentName'></input><br><br><br><br>
+    	<button class='formButton' onclick='deleteStudent()'>Remove</button>
+    	<button class='formButton' class='AddCancel' onclick="Cancel('deleteStudent')">Cancel</button>
+    </div>
+
+    <div id='deleteBook' class='form'>
+    	<label> Enter Book Name</label><br><br><br><br>
+    	<input type='text' id='deleteBookName'></input><br><br><br><br>
+    	<label> Enter Author Name</label><br><br><br><br>
+    	<input type='text' id='deleteAuthorName'></input><br><br><br><br>
+    	<button class='formButton' onclick='deleteBook()'>Remove</button>
+    	<button class='formButton' class='AddCancel' onclick="Cancel('deleteBook')">Cancel</button>
+    </div>
+
+</body>
+<script>
+	var obj=null;
+	var options={
+			   method: 'POST',
+               headers: { 'Content-type': 'application/json'} 
+            };
+
+	async function load()
+	{
+		let a=await fetch('data',options);
+		obj=await a.json();
+        var div=document.getElementById('div1');
+        div.innerText+=" "+obj.k.name;
+	}
+
+	function Add(a)
+	{
+       var form=document.getElementById(a);
+       form.style.display='initial';
+       
+	}
+
+	function Cancel(a)
+	{
+       var form=document.getElementById(a);
+       form.style.display='none';
+	}
+  async function addUser()
+  {
+     var id1=document.getElementById('userId').value;
+     var name1=document.getElementById('userName').value;
+     var setp=document.getElementById('setPassword').value;
+     var cnfp=document.getElementById('confirmSetPassword').value;
+     if(id1.length==0||name1.length==0||setp.length==0||cnfp.length==0)
+     {
+      alert('Fields cannot be Empty');
+     }
+     else if(setp.value!=cnfp.value)
+     {
+      alert('Both passwords should be same');
+     }
+     else
+     {
+      obj={
+        id:id1,
+        name:name1,
+        password:setp,
+        db:'user'
+         };
+         console.log(obj);
+          var options={
+           method: 'POST',
+               headers: { 'Content-type': 'application/json'},
+               body:JSON.stringify(obj)
+            };
+          var response= await fetch('addUser',options);
+          var json=await response.json();
+          if(json.k==null)
+          {
+            alert('Registration Id already Exist');
+            document.getElementById('addUser').style.display='none';
+          }      
+          else
+          {
+            alert('User Added SucessFully');
+            document.getElementById('addUser').style.display='none';
+          }
+        }
+  }
+
+
+
+  async function addStudent()
+  {
+     var id1=document.getElementById('studentId').value;
+     var name1=document.getElementById('studentName').value;
+  
+     if(id1.length==0||name1.length==0)
+     {
+      alert('Fields cannot be Empty');
+     }
+     else
+     {
+      obj={
+        id:id1,
+        name:name1,
+        db:'student'
+         };
+          var options={
+           method: 'POST',
+               headers: { 'Content-type': 'application/json'},
+               body:JSON.stringify(obj)
+            };
+          var response= await fetch('addStudent',options);
+          var json=await response.json();
+          if(json.k==null)
+          {
+            alert('Registration Id already Exist');
+            document.getElementById('addStudent').style.display='none';
+          }      
+          else
+          {
+            alert('Student Added SucessFully');
+            document.getElementById('addStudent').style.display='none';
+          }
+        }
+  }
+
+
+
+async function addBook()
+  {
+     var name1=document.getElementById('bookName').value;
+     var name2=document.getElementById('authorName').value;
+     var q=document.getElementById('totalQuant').value;
+     console.log(q);
+     if(name1.length==0||name2.length==0||q.length==0)
+     {
+      alert('Fields cannot be Empty');
+     }
+     else
+     {
+      obj={
+        bookName:name1,
+        authorName:name2,
+        quantity:q,
+        db:'book'
+         };
+         console.log(obj);
+          var options={
+           method: 'POST',
+               headers: { 'Content-type': 'application/json'},
+               body:JSON.stringify(obj)
+            };
+          var response= await fetch('addBook',options);
+          var json=await response.json();
+          console.log(json.l);
+        }
+  }
+
+
+
+async function deleteUser()
+{
+
+     var id1=document.getElementById('deleteUserId').value;
+     var name1=document.getElementById('deleteUserName').value;
+     if(id1.length==0||name1.length==0)
+     {
+      alert('Fields cannot be Empty');
+     }
+     else
+     {
+      obj={
+        name:name1,
+        id:id1,
+        db:'user'
+         };
+          var options={
+           method: 'POST',
+               headers: { 'Content-type': 'application/json'},
+               body:JSON.stringify(obj)
+            };
+          var response= await fetch('deleteUser',options);
+          var json=await response.json();
+         if(json.k==0)
+          {
+            alert('User Does not  Exist');
+            document.getElementById('deleteUser').style.display='none';
+          }      
+          else
+          {
+            alert('User deleted SucessFully');
+            document.getElementById('deleteUser').style.display='none';
+          }
+        }
+
+}
+
+
+
+async function deleteStudent()
+{
+
+     var id1=document.getElementById('deleteStudentId').value;
+     var name1=document.getElementById('deleteStudentName').value;
+     if(id1.length==0||name1.length==0)
+     {
+      alert('Fields cannot be Empty');
+     }
+     else
+     {
+      obj={
+        name:name1,
+        id:id1,
+        db:'student'
+         };
+          var options={
+           method: 'POST',
+               headers: { 'Content-type': 'application/json'},
+               body:JSON.stringify(obj)
+            };
+          var response= await fetch('deleteUser',options);
+          var json=await response.json();
+         if(json.k==0)
+          {
+            alert('Student Does not  Exist');
+            document.getElementById('deleteStudent').style.display='none';
+          }      
+          else
+          {
+            alert('Student deleted SucessFully');
+            document.getElementById('deleteStudent').style.display='none';
+          }
+        }
+
+}
+
+async function deleteBook()
+{
+
+     var name1=document.getElementById('deleteBookName').value;
+     var name2=document.getElementById('deleteAuthorName').value;
+     if(name2.length==0||name1.length==0)
+     {
+      alert('Fields cannot be Empty');
+     }
+     else
+     {
+      obj={
+        bookName:name1,
+        authorName:name2,
+        db:'book'
+         };
+          var options={
+           method: 'POST',
+               headers: { 'Content-type': 'application/json'},
+               body:JSON.stringify(obj)
+            };
+          var response= await fetch('deleteBook',options);
+          var json=await response.json();
+         if(json.k==0)
+          {
+            alert('Book Does not  Exist');
+            document.getElementById('deleteBook').style.display='none';
+          }      
+          else
+          {
+            alert('Book deleted SucessFully');
+            document.getElementById('deleteBook').style.display='none';
+          }
+        }
+
+}
+
+
+	async function ChangePassword()
+	{
+
+		var old=document.getElementById('oldPassword').value;
+		var neu=document.getElementById('newPassword').value;
+		if(old.length==0||neu.length==0)
+		{
+           alert('Fields Cannot be Empty');
+			
+			return;
+		}
+		object={
+	    	o:old,
+	    	n:neu,
+        db:'admin'
+	    }	
+		var options={
+			   method: 'POST',
+               headers: { 'Content-type': 'application/json'},
+               body:JSON.stringify(object)
+            };
+        let response=await fetch('changePassword',options);
+        let json=await response.json();
+        console.log('here');
+        console.log(json.k);
+          if(json.k!=null)
+        {
+        	alert('Password Changed SucessFully');
+          document.getElementById('changePassword').style.display='none';
+        }
+        else
+        {
+        	alert('Incorrect Password');
+           document.getElementById('changePassword').style.display='none';
+        }
+	}
+</script>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		
+	</title>
+	<style>
+		#b1{
+			position:absolute;
+			left:80vw;
+			top:5vh;
+			width: 15vw;
+			height: 10vh;
+			background-color: green;
+			font-size: 4vh;
+			border-radius: 2vh;
+		}
+		button:hover
+		{
+			cursor: pointer;
+			background-color: red;
+		}
+        #title
+        {
+        	position:absolute;
+			left:40vw;
+			top:20vh;
+			font-size: 8vh;
+        }
+        input{
+			border-top-style: none;
+			border-left-style: none;
+			border-right-style: none;
+			width: 25vw;
+			font-size: 4vh;
+		}
+		input:focus{
+         outline: none;
+       }
+       div{
+       	position:absolute;
+			left:40vw;
+			top:40vh;
+			font-size: 4vh;
+       }
+       #submit{
+       	width:10vw;
+       	height: 7vh;
+       	font-size: 4vh;
+       	border-radius: 2vh;
+       }
+      #error{
+      	color: red;
+      	font-size: 4vh;
+      }
+	</style>
+</head>
+<body onload>
+
+<a id='a' href="userLogin.html"><button id='b1'>UserLogin</button></a>
+<label id='title'>Admin Login</label>
+
+<div>
+	<label >Id</label></br><br>
+	 <input type="number" id="id" name="idNo"><br><br>
+	<label>Password</label></br><br>
+	 <input type="text" id="password" name="password"><br><br>
+	 <button id='submit' onclick='check()'>Login</button><br><br>
+	 <label id="error"></label>
+<div>	
+</body>
+<script>
+function check()
+{
+	if(document.getElementById('id').value.length==0||document.getElementById('password').value.length==0)
+	{
+		alert('Fields Cannot be Empty');
+		return;
+	}
+	else
+	{
+		verify();
+	}
+}
+async function verify()
+{
+		var obj={id:document.getElementById('id').value,
+            	password:document.getElementById('password').value,
+            	db:'admin'
+            };
+             var options={
+			   method: 'POST',
+               body: JSON.stringify(obj),
+               headers: { 'Content-type': 'application/json'} 
+            };
+		     console.log(2);
+
+
+            let response = await fetch('adminLogin',options);
+            console.log(response);
+            var b=await response.json();
+            if(b.k==null)
+            {
+             document.getElementById('error').innerText='Wrong ID/Password'	
+            }
+            else
+            {
+            	window.location.assign('admin.html');
+            }
+            console.log('3');
+}
+</script>
+</html>
